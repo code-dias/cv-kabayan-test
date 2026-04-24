@@ -1,58 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="200" alt="Laravel Logo">
 </p>
 
-## About Laravel
+<h1 align="center">CV KABAYAN GROUP - MANAGEMENT SYSTEM</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<p align="center">
+    <strong>Internal Point of Sales (POS) & Inventory Management System</strong>
+</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🏢 Tentang Proyek
+Sistem ini dirancang khusus untuk operasional **CV KABAYAN GROUP** guna mengelola transaksi penjualan, inventaris barang, dan laporan keuangan secara *real-time*. Dibangun dengan framework Laravel untuk menjamin keamanan dan skalabilitas data perusahaan.
 
-## Learning Laravel
+### Fitur Utama:
+* **Point of Sales (POS):** Transaksi penjualan cepat dengan fitur pencarian produk.
+* **Manajemen Inventaris:** Akumulasi stok otomatis dan peringatan stok kritis.
+* **Laporan Penjualan:** Filter laporan berdasarkan tanggal/tahun dan ekspor ke PDF.
+* **Cetak Struk:** Fitur cetak struk belanja otomatis untuk pelanggan.
+* **Keamanan Akses:** Sistem autentikasi ketat untuk staf operasional.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠 Langkah Instalasi
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Ikuti langkah-langkah di bawah ini untuk menjalankan proyek ini di lingkungan lokal Anda:
 
-## Agentic Development
+### 1. Persyaratan Sistem
+* PHP >= 8.2
+* Composer
+* Node.js & NPM
+* MySQL / MariaDB
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
+### 2. Kloning Repositori
 ```bash
-composer require laravel/boost --dev
+git clone [https://github.com/code-dias/cv-kabayan-test.git](https://github.com/code-dias/cv-kabayan-test.git)
+cd cv-kabayan-test
 
-php artisan boost:install
-```
+# Instal library PHP
+composer install
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+# Instal library JavaScript
+npm install
 
-## Contributing
+cp .env.example .env
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+DB_DATABASE=nama_database_anda
+DB_USERNAME=root
+DB_PASSWORD=
 
-## Code of Conduct
+# Membuat key aplikasi
+php artisan key:generate
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Menjalankan migrasi database
+php artisan migrate
 
-## Security Vulnerabilities
+php artisan serve
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+npm run dev
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Sistem ini bersifat internal untuk CV KABAYAN GROUP. Dasar framework menggunakan Laravel yang berlisensi MIT license.
+Copyright to code-dias 
