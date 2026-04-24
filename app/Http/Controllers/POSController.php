@@ -29,11 +29,30 @@ class POSController extends Controller
         }
     
         $sales = $salesQuery->latest('sale_date')->paginate(10)->appends(request()->all());
+
+        // 1. Ambil Produk Paling Laris (Top 5)
+        $bestProducts = \App\Models\SaleItem::select('product_id', DB::raw('SUM(qty) as total_qty'))
+        ->with('product')
+        ->groupBy('product_id')
+        ->orderByDesc('total_qty')
+        ->take(5)
+        ->get();
+
+        // 2. Ambil Mitra/Pelanggan Paling Sering (Top 5)
+        $topCustomers = \App\Models\Sale::select('customer_id', DB::raw('COUNT(*) as total_transaksi'), DB::raw('SUM(total_price) as total_spent'))
+        ->whereNotNull('customer_id') // Hanya yang terdaftar sebagai mitra
+        ->with('customer')
+        ->groupBy('customer_id')
+        ->orderByDesc('total_transaksi')
+        ->take(5)
+        ->get();
     
         return view('dashboard', [
-            'products'  => $products,
-            'customers' => $customers,
-            'sales'     => $sales
+            'products'    => $products,
+            'customers'   => $customers,
+            'sales'       => $sales,
+            'bestProducts'  => $bestProducts,
+            'topCustomers' => $topCustomers  
         ]);
     }
 

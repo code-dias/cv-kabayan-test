@@ -249,6 +249,68 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="card border-1 shadow-sm rounded-3">
+                                    <div class="card-header bg-white border-1 py-3">
+                                        <h6 class="fw-bold mb-0 text-emerald-900">
+                                            <i class="bi bi-fire text-danger me-2"></i>Produk Paling Laris
+                                        </h6>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <ul class="list-group list-group-flush">
+                                            @forelse($bestProducts as $bp)
+                                            <li class="list-group-item d-flex justify-content-between align-items-center py-3 border-0 border-bottom">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="bg-light p-2 rounded-circle me-3 text-center" style="width: 40px;">
+                                                        <i class="bi bi-box-seam text-emerald-700"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="mb-0 fw-bold">{{ $bp->product->name }}</p>
+                                                        <small class="text-muted">Total terjual: {{ $bp->total_qty }} Unit</small>
+                                                    </div>
+                                                </div>
+                                                <span class="badge bg-emerald-100 text-emerald-800 rounded-pill px-3">Top {{ $loop->iteration }}</span>
+                                            </li>
+                                            @empty
+                                            <li class="list-group-item text-center py-4 text-muted small">Belum ada data produk.</li>
+                                            @endforelse
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="card border-1 shadow-sm rounded-3">
+                                    <div class="card-header bg-white border-1 py-3">
+                                        <h6 class="fw-bold mb-0 text-emerald-900">
+                                            <i class="bi bi-people-fill text-primary me-2"></i>Mitra / Pelanggan Teraktif
+                                        </h6>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <ul class="list-group list-group-flush">
+                                            @forelse($topCustomers as $tc)
+                                            <li class="list-group-item d-flex justify-content-between align-items-center py-3 border-0 border-bottom">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="bg-primary bg-opacity-10 p-2 rounded-circle me-3 text-center" style="width: 40px;">
+                                                        <i class="bi bi-person-check-fill text-primary"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="mb-0 fw-bold">{{ $tc->customer->name }}</p>
+                                                        <small class="text-muted">{{ $tc->total_transaksi }} Transaksi | Rp {{ number_format($tc->total_spent, 0, ',', '.') }}</small>
+                                                    </div>
+                                                </div>
+                                                <i class="bi bi-trophy-fill text-warning fs-5"></i>
+                                            </li>
+                                            @empty
+                                            <li class="list-group-item text-center py-4 text-muted small">Belum ada data pelanggan.</li>
+                                            @endforelse
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     
                         <div class="mt-4 d-flex justify-content-between align-items-center">
                             <div class="small text-muted">
