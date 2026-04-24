@@ -15,10 +15,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     // Route CRUD Tambahan
     Route::post('/product/store', [POSController::class, 'storeProduct'])->name('product.store');
+    Route::put('/product/update/{id}', [POSController::class, 'updateProduct'])->name('product.update');
     Route::delete('/product/{product}', [POSController::class, 'deleteProduct'])->name('product.delete');
     
     Route::post('/customer/store', [POSController::class, 'storeCustomer'])->name('customer.store');
+    Route::put('/customer/update/{id}', [POSController::class, 'updateCustomer'])->name('customer.update');
     Route::delete('/customer/{customer}', [POSController::class, 'deleteCustomer'])->name('customer.delete');
+
     
     Route::post('/pos/store', [POSController::class, 'storeSale'])->name('pos.store');
 

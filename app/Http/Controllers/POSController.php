@@ -87,6 +87,24 @@ class POSController extends Controller
         return redirect()->back()->with('success', 'Produk baru berhasil disimpan!');
     }
 
+    public function updateProduct(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'stock' => 'required|integer|min:0',
+            'price' => 'required|integer|min:0',
+        ]);
+
+        $product = Product::findOrFail($id);
+        $product->update([
+            'name'  => $request->name,
+            'stock' => $request->stock,
+            'price' => $request->price,
+        ]);
+
+        return redirect()->back()->with('success', 'Data produk berhasil diperbarui!');
+    }
+
     public function deleteProduct(Product $product) 
     {
         if ($product->saleItems()->exists()) {
@@ -107,6 +125,22 @@ class POSController extends Controller
 
         Customer::create($validated);
         return back()->with('success', 'Pelanggan berhasil ditambah');
+    }
+
+    public function updateCustomer(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
+        ]);
+
+        $customer = Customer::findOrFail($id);
+        $customer->update([
+            'name'  => $request->name,
+            'phone' => $request->phone,
+        ]);
+
+        return redirect()->back()->with('success', 'Data mitra ' . $request->name . ' berhasil diperbarui!');
     }
 
     public function deleteCustomer(Customer $customer) 

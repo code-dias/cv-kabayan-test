@@ -321,7 +321,8 @@
                             </div>
                         </div>
                     </div>
-
+                    
+                    {{-- // PRODUK // --}}
                     <div class="tab-pane fade" id="product" role="tabpanel">
                         <form action="{{ route('product.store') }}#product" method="POST" class="row g-2 mb-4 bg-light p-3 rounded-3 border">
                             @csrf
@@ -361,14 +362,59 @@
                                     <tr>
                                         <td class="fw-bold">{{ $p->name }}</td>
                                         <td>
-                                            @if($p->stock <= 5) <span class="badge bg-danger rounded-pill px-3">Kritis: {{ $p->stock }}</span>
-                                            @else <span class="badge bg-light text-success border border-success rounded-pill px-3">Aman: {{ $p->stock }}</span> @endif
+                                            @if($p->stock <= 5) 
+                                                <span class="badge bg-danger rounded-pill px-3">Kritis: {{ $p->stock }}</span>
+                                            @else 
+                                                <span class="badge bg-light text-success border border-success rounded-pill px-3">Aman: {{ $p->stock }}</span> 
+                                            @endif
                                         </td>
                                         <td class="fw-bold text-dark">Rp {{ number_format($p->price, 0, ',', '.') }}</td>
                                         <td class="text-center">
-                                            <form action="{{ route('product.delete', $p->id) }}#product" method="POST" onsubmit="return confirm('Hapus produk ini?')">@csrf @method('DELETE')
-                                                <button class="btn btn-link text-danger p-0"><i class="bi bi-trash fs-5"></i></button>
-                                            </form>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <button type="button" class="btn btn-link text-primary p-0" data-bs-toggle="modal" data-bs-target="#editProduct{{ $p->id }}">
+                                                    <i class="bi bi-pencil-square fs-5"></i>
+                                                </button>
+                                
+                                                <form action="{{ route('product.delete', $p->id) }}#product" method="POST" onsubmit="return confirm('Hapus produk ini?')">
+                                                    @csrf @method('DELETE')
+                                                    <button class="btn btn-link text-danger p-0"><i class="bi bi-trash fs-5"></i></button>
+                                                </form>
+                                            </div>
+                                
+                                            <div class="modal fade" id="editProduct{{ $p->id }}" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content border-0 shadow">
+                                                        <div class="modal-header bg-emerald-600 text-white border-0">
+                                                            <h5 class="modal-title fw-bold"><i class="bi bi-pencil-square me-2"></i>Edit Produk</h5>
+                                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form action="{{ route('product.update', $p->id) }}#product" method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="modal-body p-4 text-start">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-bold small text-muted">NAMA PRODUK</label>
+                                                                    <input type="text" name="name" class="form-control fw-bold" value="{{ $p->name }}" required>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6 mb-3">
+                                                                        <label class="form-label fw-bold small text-muted">STOK SAAT INI</label>
+                                                                        <input type="number" name="stock" class="form-control" value="{{ $p->stock }}" required>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-3">
+                                                                        <label class="form-label fw-bold small text-muted">HARGA SATUAN (Rp)</label>
+                                                                        <input type="number" name="price" class="form-control" value="{{ $p->price }}" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer border-0 bg-light">
+                                                                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Batal</button>
+                                                                <button type="submit" class="btn btn-success px-4 fw-bold shadow-sm">SIMPAN PERUBAHAN</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -377,6 +423,7 @@
                         </div>
                     </div>
 
+                    {{-- // PELANGGAN // --}}
                     <div class="tab-pane fade" id="customer" role="tabpanel">
                         <form action="{{ route('customer.store') }}#customer" method="POST" class="row g-3 mb-4 bg-light p-3 rounded-3 border">
                             @csrf
@@ -391,11 +438,58 @@
                                     @foreach($customers as $c)
                                     <tr>
                                         <td class="fw-bold">{{ $c->name }}</td>
-                                        <td><span class="text-success"><i class="bi bi-whatsapp me-2"></i>{{ $c->phone ?? '-' }}</span></td>
+                                        <td>
+                                            @if($c->phone)
+                                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $c->phone) }}" target="_blank" class="text-success text-decoration-none">
+                                                    <i class="bi bi-whatsapp me-2"></i>{{ $c->phone }}
+                                                </a>
+                                            @else
+                                                <span class="text-muted small">- Tidak ada kontak -</span>
+                                            @endif
+                                        </td>
                                         <td class="text-center">
-                                            <form action="{{ route('customer.delete', $c->id) }}#customer" method="POST">@csrf @method('DELETE')
-                                                <button class="btn btn-link text-danger p-0"><i class="bi bi-trash fs-5"></i></button>
-                                            </form>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <button type="button" class="btn btn-link text-primary p-0" data-bs-toggle="modal" data-bs-target="#editCustomer{{ $c->id }}">
+                                                    <i class="bi bi-pencil-square fs-5"></i>
+                                                </button>
+                                
+                                                <form action="{{ route('customer.delete', $c->id) }}#customer" method="POST" onsubmit="return confirm('Hapus data mitra ini?')">
+                                                    @csrf @method('DELETE')
+                                                    <button class="btn btn-link text-danger p-0"><i class="bi bi-trash fs-5"></i></button>
+                                                </form>
+                                            </div>
+                                
+                                            <div class="modal fade" id="editCustomer{{ $c->id }}" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content border-0 shadow">
+                                                        <div class="modal-header bg-emerald-600 text-white border-0">
+                                                            <h5 class="modal-title fw-bold"><i class="bi bi-person-gear me-2"></i>Edit Data Mitra</h5>
+                                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form action="{{ route('customer.update', $c->id) }}#customer" method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="modal-body p-4 text-start">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-bold small text-muted">NAMA LENGKAP MITRA</label>
+                                                                    <input type="text" name="name" class="form-control fw-bold" value="{{ $c->name }}" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-bold small text-muted">NOMOR TELEPON / WHATSAPP</label>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text bg-light"><i class="bi bi-telephone"></i></span>
+                                                                        <input type="text" name="phone" class="form-control" value="{{ $c->phone }}" placeholder="Contoh: 08123456789">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer border-0 bg-light">
+                                                                <button type="button" class="btn btn-secondary px-4 shadow-sm" data-bs-dismiss="modal">Batal</button>
+                                                                <button type="submit" class="btn btn-success px-4 fw-bold shadow-sm">SIMPAN PERUBAHAN</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach
